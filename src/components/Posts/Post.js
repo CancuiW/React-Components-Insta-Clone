@@ -3,9 +3,9 @@ import Comments from '../Comments/Comments';
 import LikeSection from './LikeSection';
 import PostHeader from './PostHeader';
 
-const Post = props => {
-  // 🔥 Make sure the parent of Post is passing the right props!
+const Post = props => { 
   const { post, likePost } = props;
+  //console.log(post)
 
   return (
     <div className='post-border'>
@@ -20,11 +20,13 @@ const Post = props => {
           src={post.imageUrl}
         />
       </div>
-      {/* Is LikeSection getting all the props it needs to work correctly? */}
-      <LikeSection likePost={() => likePost(post.id)} />
-      {/* Comments also wants its props! */}
-      <Comments />
+     
+      <LikeSection likePost={() => likePost(post.id)}  numberOfLikes={post.likes} />
+      
+      <Comments comments={post.comments}/>
     </div>
+     //之所以是 () => likePost(post.id)的形式，主要是因为likePost(post.id)直接是得到setPost（），这种会立刻改变state的value，所以需要
+     //加入一个function将其包裹起来，仅click的时候才调用
   );
 };
 
